@@ -1,19 +1,21 @@
 def substrings(input, dictionary)
     #stuff here
-end
 
-output = {}
-input = "Howdy partner, sit down! How's it going?"
-input_split = input.split(" ")
-# p input_split
-words = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
+    words = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
+    output = Hash.new(0)
 
-x = input_split.reduce(Hash.new(0)) do |result, occurrences|
-    if words.include?(occurrences)
-        result[occurrences] += 1
+    # input = "Howdy partner, sit down! How's it going?"
+    input.gsub!(/[^a-z0-9\s]/i, '')
+    input.downcase!
+    input_split = input.split(" ")
+    input_split.each do |word|
+        dictionary.each do |dictionary_word|
+            if word.include?(dictionary_word.downcase)
+                output[dictionary_word] += 1
+            end
+        end
     end
-    result
+    return output
 end
 
-
-p x
+p substrings("Howdy partner, sit down! How's it going?", ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"])
